@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class Registro extends AppCompatActivity {
     private EditText pais;
     private EditText email;
     private EditText password;
+    private RadioGroup seleccionar;
+    private RadioButton rbSelected;
     private Button btnregistro;
     private FirebaseAuth mAuth;
     private String userID;
@@ -46,7 +50,10 @@ public class Registro extends AppCompatActivity {
         pais = findViewById(R.id.pais);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
+        seleccionar = findViewById(R.id.rol);
         btnregistro = findViewById(R.id.btnregistro);
+
+
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -72,6 +79,12 @@ public class Registro extends AppCompatActivity {
         String contry= pais.getText().toString();
         String mail= email.getText().toString();
         String pass= password.getText().toString();
+        //obtener referencia del radiobuton seleccionado
+        int selectrdId= seleccionar.getCheckedRadioButtonId();
+        rbSelected= findViewById(selectrdId);
+
+        //obtener el valor de radiobutton seleccionado
+        String namerol = rbSelected.getText().toString();
 
         if(TextUtils.isEmpty(nombres)){
             nombre.setError("Ingresar sus nombres");
@@ -85,6 +98,9 @@ public class Registro extends AppCompatActivity {
         } else if(TextUtils.isEmpty(pass)){
             password.setError("Ingresar sus nombres");
             password.requestFocus();
+        }else if(TextUtils.isEmpty(namerol)){
+            rbSelected.setError("Ingresar rol");
+            rbSelected.requestFocus();
         }else {
             mAuth.createUserWithEmailAndPassword(mail,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -98,6 +114,7 @@ public class Registro extends AppCompatActivity {
                         user.put("Pais",contry);
                         user.put("Email",mail);
                         user.put("Password",pass);
+                        user.put("Rol", namerol);
 
                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
