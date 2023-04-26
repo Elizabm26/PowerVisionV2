@@ -7,18 +7,28 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import com.example.powervisionv2.R;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    //implements NavigationView.OnNavigationItemSelectedListener
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    FrameLayout fragmentContainer;
+     NavController navController;
 
 
     @Override
@@ -29,20 +39,33 @@ public class MainActivity extends AppCompatActivity {
         setToolBar();
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        fragmentContainer = findViewById(R.id.fragment_container);
 
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav,
-                R.string.close_nav);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment_inicio()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
-        }*/
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        Fragment fragment = null;
+                        int id = menuItem.getItemId();
+
+                        if (id == R.id.nav_inicio) {
+                            fragment = new Fragment_inicio();
+                        } else if (id == R.id.nav_planes) {
+                            fragment = new Fragment_planes();
+                        } else if (id == R.id.nav_logout) {
+                            fragment = new Fragment_planes();
+                        }
+                        if (fragment != null) {
+                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.fragment_container, fragment);
+                            ft.commit();
+                        }
+                        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
+                });
     }
     private void setToolBar(){
         Toolbar toolbar= findViewById(R.id.toolbar);
@@ -60,40 +83,28 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    /* @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        boolean fragmentTransaction = false;
+  /*  private void showFragment(int itemId) {
         Fragment fragment = null;
-        switch (item.getItemId()) {
-            case R.id.nav_home:
+        switch (itemId) {
+            case R.id.nav_inicio:
                 fragment = new Fragment_inicio();
-                fragmentTransaction = true;
                 break;
             case R.id.nav_planes:
                 fragment = new Fragment_planes();
-                fragmentTransaction = true;
-                 break;
-            case R.id.nav_logout:
-                Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.nav_logout:
+                fragment = new Fragment_planes();
+                break;
+            // Agrega aquí los casos para cada item de tu menú lateral
         }
-        if(fragmentTransaction) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit();
 
-            item.setChecked(true);
-            getSupportActionBar().setTitle(item.getTitle());
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, fragment);
+            ft.commit();
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }*/
 }
