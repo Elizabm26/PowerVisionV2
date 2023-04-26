@@ -15,11 +15,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.powervisionv2.datos.Datos;
+import com.example.powervisionv2.funciones.Autenticacion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,9 +40,7 @@ public class Registro extends AppCompatActivity {
     private RadioButton rbSelected;
     private Button btnregistro;
     private FirebaseAuth mAuth;
-    private String userID;
-    private FirebaseFirestore db;
-
+    private String namerol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,56 @@ public class Registro extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        //Llamamos la clase con la función de login
+        Autenticacion aut = new Autenticacion();
 
-        btnregistro.setOnClickListener( view ->  {
-            createuser();
+        btnregistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nombres= nombre.getText().toString();
+                String contry= pais.getText().toString();
+                String mail= email.getText().toString();
+                String pass= password.getText().toString();
+                //obtener referencia del radiobuton seleccionado
+                int selectrdId= seleccionar.getCheckedRadioButtonId();
+                if(TextUtils.isEmpty(nombres)){
+                    nombre.setError("Ingresar sus nombres");
+                    nombre.requestFocus();
+                } else if(TextUtils.isEmpty(contry)){
+                    pais.setError("Ingresar sus nombres");
+                    pais.requestFocus();
+                } else if(TextUtils.isEmpty(mail)){
+                    email.setError("Ingresar sus nombres");
+                    email.requestFocus();
+                } else if(TextUtils.isEmpty(pass)){
+                    password.setError("Ingresar sus nombres");
+                    password.requestFocus();
+                }else if(selectrdId == -1){
+                    rbSelected.setError("Ingresar rol");
+                    rbSelected.requestFocus();
+                }else {
+                    rbSelected= findViewById(selectrdId);
+                    //obtener el valor de radiobutton seleccionado
+                    namerol = rbSelected.getText().toString();
+                    Datos datos = new Datos(nombres,contry,mail,pass,namerol);
+                    aut.createuser(datos, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                String userId = firebaseUser.getUid();
+                                aut.saveUser(userId, datos);
+                                Toast.makeText(Registro.this, "Registro exitoso.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Registro.this, Login.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(Registro.this, "Usuario no registardo" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
         });
-
-
         txtregresar=findViewById(R.id.regresar);
         txtregresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,65 +116,5 @@ public class Registro extends AppCompatActivity {
                 startActivity(txtregresar);
             }
         });
-
     }
-    public  void createuser(){
-        String nombres= nombre.getText().toString();
-        String contry= pais.getText().toString();
-        String mail= email.getText().toString();
-        String pass= password.getText().toString();
-        //obtener referencia del radiobuton seleccionado
-        int selectrdId= seleccionar.getCheckedRadioButtonId();
-        rbSelected= findViewById(selectrdId);
-
-        //obtener el valor de radiobutton seleccionado
-        String namerol = rbSelected.getText().toString();
-
-        if(TextUtils.isEmpty(nombres)){
-            nombre.setError("Ingresar sus nombres");
-            nombre.requestFocus();
-        } else if(TextUtils.isEmpty(contry)){
-            pais.setError("Ingresar sus nombres");
-            pais.requestFocus();
-        } else if(TextUtils.isEmpty(mail)){
-            email.setError("Ingresar sus nombres");
-            email.requestFocus();
-        } else if(TextUtils.isEmpty(pass)){
-            password.setError("Ingresar sus nombres");
-            password.requestFocus();
-        }else if(TextUtils.isEmpty(namerol)){
-            rbSelected.setError("Ingresar rol");
-            rbSelected.requestFocus();
-        }else {
-            mAuth.createUserWithEmailAndPassword(mail,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        userID = mAuth.getCurrentUser().getUid();
-                        DocumentReference documentReference = db.collection("users").document(userID);
-
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("Nombres",nombres);
-                        user.put("Pais",contry);
-                        user.put("Email",mail);
-                        user.put("Password",pass);
-                        user.put("Rol", namerol);
-
-                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Log.d("TAG","onSuccess: Datos registrados"+userID);
-                            }
-                        });
-                        Toast.makeText(Registro.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Registro.this, Login.class));
-                    }else {
-                        Toast.makeText(Registro.this, "Usuario no registardo"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-        }
-    }
-
 }

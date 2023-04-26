@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.powervisionv2.datos.Datos;
+import com.example.powervisionv2.funciones.Autenticacion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,9 +40,35 @@ public class Login extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-        btnlogin.setOnClickListener( view ->  {
-            userlogin();
+        //Llamamos la clase con la función de login
+        Autenticacion aut = new Autenticacion();
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = txtemail.getText().toString();
+                String password = txtpass.getText().toString();
+                Datos user = new Datos("", "", email, password, "");
+                if(TextUtils.isEmpty(email)){
+                    txtemail.setError("Ingrese un correo");
+                    txtemail.requestFocus();
+                } else if(TextUtils.isEmpty(password)){
+                    Toast.makeText(Login.this, "Ingresar una contraseña", Toast.LENGTH_SHORT).show();
+                    txtpass.requestFocus();
+                } else {
+                    aut.userlogin(user, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Login.this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Login.this, MainActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(Login.this, "Error al iniciar sesión.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
         });
 
         txtregistro=findViewById(R.id.registro);
@@ -59,29 +87,4 @@ public class Login extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
     }
-
-    public void userlogin(){
-        String mail = txtemail.getText().toString();
-        String pass = txtpass.getText().toString();
-        if(TextUtils.isEmpty(mail)){
-            txtemail.setError("Ingrese un correo");
-            txtemail.requestFocus();
-        } else if(TextUtils.isEmpty(pass)){
-            Toast.makeText(Login.this, "Ingresar una contraseña", Toast.LENGTH_SHORT).show();
-            txtpass.requestFocus();
-        } else {
-            mAuth.signInWithEmailAndPassword(mail,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(Login.this, "Bienvenido", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Login.this, MainActivity.class));
-                    }else {
-                        Log.w("TAG","Error: ", task.getException());
-                    }
-                }
-            });
-        }
-    }
-
 }
