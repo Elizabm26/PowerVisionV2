@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ekn.gruzer.gaugelibrary.ArcGauge;
 import com.example.powervisionv2.grafico.FireDatos;
@@ -41,8 +42,6 @@ public class Fragment_inicio extends Fragment {
           // obtener la raferiancia de la grafica
           IntesidadGauge = view.findViewById(R.id.Itensidad);
           CorrienteGauge = view.findViewById(R.id.Corriente);
-          Double intensidad = IntesidadGauge.getValue();
-          Double corriente = CorrienteGauge.getValue();
 
 
           //llamar la clase medidor
@@ -71,21 +70,27 @@ public class Fragment_inicio extends Fragment {
                         IntesidadGauge.setValue(fireDatos.getINTENSIDAD());
                         CorrienteGauge.setValue(fireDatos.getCORRIENTE());
 
+                      Double intensidad = IntesidadGauge.getValue();
+                      Double corriente = CorrienteGauge.getValue();
+
+                      if(intensidad >= 4 || corriente >= 400){
+                          Toast.makeText(getActivity(), " ¡Cuidado! tu limite establecido te estas pasando", Toast.LENGTH_SHORT).show();
+                          /* NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "CHANNEL_ID")
+                                  .setSmallIcon(R.drawable.powervision)
+                                  .setContentTitle("¡Cuidado!")
+                                  .setContentText("Estás superando el límite de tu plan de consumo");
+
+                          NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                          manager.notify(0, builder.build());*/
+                      }
+
 
                       //Double amperio = Double.parseDouble(dataSnapshot.child("Amperios").getValue().toString());
                       //Double corriente = Double.parseDouble(dataSnapshot.child("Corriente").getValue().toString());
 
                       //textView.setText(amperio + " - " + corriente);
                   }
-                  if(intensidad >= 4 || corriente >= 400){
-                      NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                              .setSmallIcon(R.drawable.powervision)
-                              .setContentTitle("Cuidado !!!!")
-                              .setContentText("Estas superando el limite de tu plan de consumo");
-                      NotificationManager manager = (NotificationManager)
-                              getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                      manager.notify(0,builder.build());
-                  }
+
               }
 
               @Override
