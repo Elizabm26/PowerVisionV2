@@ -16,7 +16,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="550dp"
+        android:layout_marginBottom="600dp"
         android:gravity="center"
         android:src="@drawable/powervision"/>
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="175dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"

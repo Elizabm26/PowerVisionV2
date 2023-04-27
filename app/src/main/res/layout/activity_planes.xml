@@ -15,7 +15,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="600dp"
+        android:layout_marginBottom="650dp"
         android:gravity="center"
         android:src="@drawable/powervision"/>
     <TextView
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="0dp"
         android:gravity="center"
@@ -35,7 +35,11 @@
         android:id="@+id/plan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblplan">
+        android:layout_below="@id/lblplan"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,9 +48,9 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="0dp"/>
         <RadioButton
             android:id="@+id/plan1"
             android:layout_width="match_parent"

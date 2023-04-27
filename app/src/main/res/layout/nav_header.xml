@@ -15,6 +15,7 @@
         android:src="@drawable/logo"/>
 
     <TextView
+        android:id="@+id/textnombres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Android Knowledge"
@@ -22,6 +23,7 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/textcorreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="contact@androidknowledge.com"

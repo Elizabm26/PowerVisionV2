@@ -18,9 +18,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import com.example.powervisionv2.R;
+
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FrameLayout fragmentContainer;
-     NavController navController;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,17 @@ public class MainActivity extends AppCompatActivity {
         setToolBar();
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        fragment = getSupportFragmentManager().findFragmentByTag("fragment_inicio");
+        fragment = new Fragment_inicio();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
+
+        // Guardar una referencia al Fragment
+        Fragment_inicio myFragment = (Fragment_inicio) fragment;
+
+        // Acceder al Fragment más tarde
+        myFragment.doSomething();
         fragmentContainer = findViewById(R.id.fragment_container);
 
         navigationView = findViewById(R.id.nav_view);

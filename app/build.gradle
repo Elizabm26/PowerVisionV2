@@ -38,13 +38,24 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-
+    //firebase
     implementation 'com.google.firebase:firebase-firestore:24.5.0'
     implementation 'com.google.firebase:firebase-database:20.2.0'
     implementation 'com.google.firebase:firebase-auth:21.3.0'
+    implementation platform('com.google.firebase:firebase-bom:31.5.0')
+    implementation 'com.google.firebase:firebase-analytics'
 
+    //navigationView
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
+
+    //grafica en tiempo real
+    implementation 'com.github.Gruzer:simple-gauge-android:0.3.1'
+    //Graficos estadistico
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //implementation 'com.androidplot:androidplot-core:1.5.7'
+
+    implementation 'io.github.farshidroohi:lineGraph:1.0.2'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

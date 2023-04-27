@@ -1,10 +1,40 @@
 {
   "project_info": {
     "project_number": "222716062509",
+    "firebase_url": "https://powervisionv2-default-rtdb.firebaseio.com",
     "project_id": "powervisionv2",
     "storage_bucket": "powervisionv2.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222716062509:android:a25fa8d029e345f3d801a4",
+        "android_client_info": {
+          "package_name": "com.example.powervision"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222716062509-n3lnlun0bh8121cmunfd6akad01g1a31.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4yXTdmrBKrRQecGUs_aRIgmg8QFvIHk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222716062509-n3lnlun0bh8121cmunfd6akad01g1a31.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:222716062509:android:501b73f8d12163a3d801a4",
