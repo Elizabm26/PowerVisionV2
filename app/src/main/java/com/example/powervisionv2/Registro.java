@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,13 +50,19 @@ public class Registro extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
 
         nombre = findViewById(R.id.name);
-        pais = findViewById(R.id.pais);
+        //pais = findViewById(R.id.pais);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         seleccionar = findViewById(R.id.rol);
         btnregistro = findViewById(R.id.btnregistro);
+        Spinner countrySpinner = findViewById(R.id.country_spinner);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.country_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        countrySpinner.setAdapter(adapter);
+        countrySpinner.setSelection(0);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();

@@ -10,6 +10,15 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string-array name="country_array">
+        <item>Seleccione un país</item>
+        <item icon="@drawable/ic_pais">Ecuador</item>
+        <item icon="@drawable/ic_pais">Canadá</item>
+        <item icon="@drawable/ic_pais">México</item>
+        <item icon="@drawable/ic_pais">España</item>
+        <item icon="@drawable/ic_pais">Argentina</item>
+    </string-array>
+
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
