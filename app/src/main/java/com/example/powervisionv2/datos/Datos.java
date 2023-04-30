@@ -6,16 +6,26 @@ public class Datos {
     private String correo;
     private String contraseña;
     private String rol;
+    private String plan;
 
     public Datos() {
     }
 
-    public Datos(String nombre, String pais, String correo, String contraseña, String rol) {
+    public Datos(String nombre, String pais, String correo, String contraseña, String rol, String plan) {
         this.nombre = nombre;
         this.pais = pais;
         this.correo = correo;
         this.contraseña = contraseña;
         this.rol = rol;
+        this.plan = plan;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
     }
 
     public String getNombre() {
