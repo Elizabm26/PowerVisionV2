@@ -26,4 +26,8 @@ public class Validacion {
         }
         return camposValidos;
     }
+    public boolean validarCorreoElectronico(String correo) {
+        String pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return correo.matches(pattern);
+    }
 }

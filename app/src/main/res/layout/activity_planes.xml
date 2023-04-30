@@ -47,10 +47,12 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
+            android:gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"/>
+
         <RadioButton
             android:id="@+id/plan1"
             android:layout_width="match_parent"
@@ -59,35 +61,37 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"
-            android:text="Plan Inicial"
+            android:background="#A6656060"
             android:textColor="@color/white"
-            android:background="#A6656060"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
+            android:id="@+id/wattsp1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="      1000 watts"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="#A6656060"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="0dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="      $ 20"
+            android:layout_marginBottom="0dp"
+            android:background="#A6656060"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="#A6656060"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/preciop1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:background="#A6656060"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <RadioButton
             android:id="@+id/plan2"
             android:layout_width="match_parent"
@@ -96,35 +100,37 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"
-            android:text="Plan Plus"
+            android:background="#A6656060"
             android:textColor="@color/white"
-            android:background="#A6656060"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
+            android:id="@+id/wattsp2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="      2500 watts"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="#A6656060"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="0dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="      $ 35"
+            android:layout_marginBottom="0dp"
+            android:background="#A6656060"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="#A6656060"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/preciop2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:background="#A6656060"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <RadioButton
             android:id="@+id/plan3"
             android:layout_width="match_parent"
@@ -133,35 +139,36 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"
-            android:text="Plan Avanzado"
+            android:background="#A6656060"
             android:textColor="@color/white"
-            android:background="#A6656060"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
+            android:id="@+id/wattsp3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="      5000 watts"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="#A6656060"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="0dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="      $ 50"
+            android:layout_marginBottom="0dp"
+            android:background="#A6656060"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="#A6656060"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/preciop3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:background="#A6656060"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/planprueba"
@@ -171,35 +178,36 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"
-            android:text="Plan prueba"
+            android:background="#A6656060"
             android:textColor="@color/white"
-            android:background="#A6656060"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
+            android:id="@+id/wattsp4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="      250 watts"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="#A6656060"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="0dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="      $ 0"
+            android:layout_marginBottom="0dp"
+            android:background="#A6656060"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="#A6656060"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/preciop4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:background="#A6656060"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
     </RadioGroup>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/planregistro"

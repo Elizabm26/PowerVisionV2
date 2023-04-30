@@ -99,11 +99,11 @@ public class Registro extends AppCompatActivity {
                     btnsiguiente.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //if(validacion.validarCampos(nombre,email, password)) {
+                            if(validacion.validarCampos(nombre,email, password)) {
                                 Intent intent = new Intent(Registro.this, Planes.class);
                                 startActivity(intent);
                                 finish();
-                           // }
+                           }
                         }
                     });
                 } else if (checkedId == R.id.libre) {
