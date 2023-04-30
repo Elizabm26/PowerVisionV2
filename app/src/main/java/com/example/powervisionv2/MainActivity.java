@@ -1,29 +1,24 @@
 package com.example.powervisionv2;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import com.example.powervisionv2.R;
 
-import android.widget.TextView;
-import android.widget.Toast;
+import android.content.Intent;
+import com.google.firebase.auth.FirebaseAuth;
+import com.example.powervisionv2.Login;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DatabaseReference;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
                         } else if (id == R.id.nav_planes) {
                             fragment = new Fragment_planes();
                         } else if (id == R.id.nav_logout) {
-                            fragment = new Fragment_planes();
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intent = new Intent(MainActivity.this, Login.class);
+                            startActivity(intent);
+                            finish();
                         }
                         if (fragment != null) {
                             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -77,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
     }
     private void setToolBar(){
         Toolbar toolbar= findViewById(R.id.toolbar);
@@ -94,28 +93,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-  /*  private void showFragment(int itemId) {
-        Fragment fragment = null;
-        switch (itemId) {
-            case R.id.nav_inicio:
-                fragment = new Fragment_inicio();
-                break;
-            case R.id.nav_planes:
-                fragment = new Fragment_planes();
-                break;
-            case R.id.nav_logout:
-                fragment = new Fragment_planes();
-                break;
-            // Agrega aquí los casos para cada item de tu menú lateral
-        }
-
-        if (fragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_container, fragment);
-            ft.commit();
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-    }*/
 }
