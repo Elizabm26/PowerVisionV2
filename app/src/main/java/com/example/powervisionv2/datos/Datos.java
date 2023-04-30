@@ -1,12 +1,12 @@
 package com.example.powervisionv2.datos;
 
 public class Datos {
-    private String nombre;
-    private String pais;
-    private String correo;
-    private String contraseña;
-    private String rol;
-    private String plan;
+    private static String nombre;
+    private static String pais;
+    private static String correo;
+    private static String contraseña;
+    private static String rol;
+    private static String plan;
 
     public Datos() {
     }

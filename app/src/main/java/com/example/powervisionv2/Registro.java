@@ -83,6 +83,15 @@ public class Registro extends AppCompatActivity {
         seleccionar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                String nombres= nombre.getText().toString();
+                String mail= email.getText().toString();
+                String pass= password.getText().toString();
+                int selectrdId= seleccionar.getCheckedRadioButtonId();
+                rbSelected= findViewById(selectrdId);
+                namerol = rbSelected.getText().toString();
+                // Obtener el país seleccionado en el Spinner
+                String country = countrySpinner.getSelectedItem().toString();
+                Datos datos = new Datos(nombres,country,mail,pass,namerol, "00");
                 if(checkedId == R.id.consumo)
                 {
                     btnsiguiente.setVisibility(View.VISIBLE);
@@ -103,15 +112,7 @@ public class Registro extends AppCompatActivity {
                     btnregistro.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String nombres= nombre.getText().toString();
-                            String mail= email.getText().toString();
-                            String pass= password.getText().toString();
-                            int selectrdId= seleccionar.getCheckedRadioButtonId();
-                            rbSelected= findViewById(selectrdId);
-                            namerol = rbSelected.getText().toString();
-                            // Obtener el país seleccionado en el Spinner
-                            String country = countrySpinner.getSelectedItem().toString();
-                            Datos datos = new Datos(nombres,country,mail,pass,namerol, "");
+
                             if(validacion.validarCampos(nombre,email, password)) {
                                 aut.createuser(datos, new OnCompleteListener<AuthResult>() {
                                     @Override
