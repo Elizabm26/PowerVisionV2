@@ -72,6 +72,7 @@ public class Fragment_planes extends Fragment {
         obtenerDatosPlanes(txtnombre4,txtpower4,txtprecio4, 3);
         plan = view.findViewById(R.id.datosplanes);
         plan.setText("Hola "+dat.getNombre()+"tu plan selecionado es: "+dat.getPlan());
+        System.out.println("hola");
         return view;
     }
     public void obtenerDatosPlanes(TextView txtnombre1, TextView txtpower1, TextView txtprecio1, int num) {
