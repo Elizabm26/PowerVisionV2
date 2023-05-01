@@ -19,6 +19,7 @@ public class Autenticacion {
     public void userlogin(Datos datos, OnCompleteListener<AuthResult> listener)
     {
         mAuth.signInWithEmailAndPassword(datos.getCorreo(), datos.getContraseña()).addOnCompleteListener(listener);
+
     }
     public void createuser(Datos datos, OnCompleteListener<AuthResult> listener)
     {

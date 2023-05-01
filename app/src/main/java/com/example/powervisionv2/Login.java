@@ -1,5 +1,7 @@
 package com.example.powervisionv2;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -65,6 +67,28 @@ public class Login extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(Login.this, "Inicio de sesión exitoso.", Toast.LENGTH_SHORT).show();
+                                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                                db.collection("users").document(userID)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) {
+                                                        String plan = document.getString("plan");
+                                                        // Aquí puedes marcar el RadioButton correspondiente según el plan del usuario
+
+                                                    } else {
+                                                        Log.d(TAG, "No such document");
+                                                    }
+                                                } else {
+                                                    Log.d(TAG, "get failed with ", task.getException());
+                                                }
+                                            }
+                                        });
                                 Intent intent = new Intent(Login.this, MainActivity.class);
                                 startActivity(intent);
                             } else {
@@ -91,4 +115,5 @@ public class Login extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
     }
+
 }
