@@ -84,7 +84,7 @@ public class Fragment_planes extends Fragment {
         System.out.println("hola");
         seleccionar = view.findViewById(R.id.planes12);
         update = view.findViewById(R.id.planactualizar);
-        update.setOnClickListener(new View.OnClickListener() {2
+        update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int selectrdId = seleccionar.getCheckedRadioButtonId();
