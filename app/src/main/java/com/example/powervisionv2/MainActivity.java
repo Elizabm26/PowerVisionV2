@@ -10,17 +10,22 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import android.content.Intent;
+import android.widget.TextView;
+
+import com.example.powervisionv2.datos.Datos;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.powervisionv2.Login;
 
 import com.google.android.material.navigation.NavigationView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
 
     DrawerLayout drawerLayout;
@@ -30,11 +35,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setToolBar();
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-
+        View headerView = navigationView.getHeaderView(0);
+        Datos dat = new Datos();
+        Header header = new Header();
+        TextView nombres = headerView.findViewById(R.id.textnombres);
+        TextView correo1 = headerView.findViewById(R.id.textcorreo);
+        String correo = dat.getCorreo();
+        header.obtenerDatosPlanes(nombres, correo, correo1);
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         fragment = getSupportFragmentManager().findFragmentByTag("fragment_inicio");
         fragment = new Fragment_inicio();

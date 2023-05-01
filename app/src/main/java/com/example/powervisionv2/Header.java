@@ -1,6 +1,7 @@
 package com.example.powervisionv2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,20 +20,14 @@ import java.util.List;
 import java.util.Map;
 
 public class Header extends AppCompatActivity {
-    private TextView nombres;
-    private TextView correo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_header);
-        nombres = findViewById(R.id.textnombres);
-        correo = findViewById(R.id.textcorreo);
-        Datos dat= new Datos();
-        obtenerDatosPlanes(nombres,dat.getCorreo());
-        correo.setText(dat.getCorreo());
     }
-    public void obtenerDatosPlanes(TextView txtnombre1, String cor) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public void obtenerDatosPlanes(TextView txtnombre1,String cor, TextView correo) {
+        correo.setText(cor);
+       FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").whereEqualTo("correo", cor)
                 .limit(1)
                 .get()
@@ -54,5 +49,4 @@ public class Header extends AppCompatActivity {
                     }
                 });
     }
-
 }
