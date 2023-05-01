@@ -80,11 +80,11 @@ public class Fragment_planes extends Fragment {
         obtenerDatosPlanes(txtnombre3,txtpower3,txtprecio3, 2);
         obtenerDatosPlanes(txtnombre4,txtpower4,txtprecio4, 3);
         plan = view.findViewById(R.id.datosplanes);
-        plan.setText("Hola "+dat.getNombre()+"tu plan selecionado es: "+dat.getPlan());
+        plan.setText("Hola "+ dat.getNombre() +" tu plan selecionado es: "+ dat.getPlan());
         System.out.println("hola");
         seleccionar = view.findViewById(R.id.planes12);
         update = view.findViewById(R.id.planactualizar);
-        update.setOnClickListener(new View.OnClickListener() {
+        update.setOnClickListener(new View.OnClickListener() {2
             @Override
             public void onClick(View view) {
                 int selectrdId = seleccionar.getCheckedRadioButtonId();
