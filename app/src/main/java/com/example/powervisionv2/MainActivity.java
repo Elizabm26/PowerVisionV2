@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 
 import com.example.powervisionv2.datos.Datos;
 import com.google.firebase.auth.FirebaseAuth;
-import com.example.powervisionv2.Login;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,6 +29,7 @@ public class MainActivity extends AppCompatActivity{
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FrameLayout fragmentContainer;
+    private TextView plan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

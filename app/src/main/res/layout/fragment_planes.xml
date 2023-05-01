@@ -2,8 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/contenedorFragme"
     android:layout_height="match_parent"
-    tools:context=".Fragment_planes">
+    tools:context=".Fragment_planes" >
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -13,6 +14,7 @@
          />
 
     <RelativeLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/ic_wave">
@@ -39,6 +41,7 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
             <RadioButton
                 android:id="@+id/plan1"
                 android:layout_width="match_parent"
@@ -48,8 +51,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:background="#A6656060"
-                android:textColor="@color/white"
                 android:paddingStart="20dp"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -62,8 +65,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:background="#A6656060"
-                android:textColor="@color/black"
                 android:paddingStart="50dp"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -76,8 +79,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="#A6656060"
-                android:textColor="@color/black"
                 android:paddingStart="50dp"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -90,8 +93,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:background="#A6656060"
-                android:textColor="@color/white"
                 android:paddingStart="20dp"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -104,8 +107,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:background="#A6656060"
-                android:textColor="@color/black"
                 android:paddingStart="50dp"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -118,8 +121,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="#A6656060"
-                android:textColor="@color/black"
                 android:paddingStart="50dp"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -132,8 +135,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:background="#A6656060"
-                android:textColor="@color/white"
                 android:paddingStart="20dp"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -146,8 +149,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:background="#A6656060"
-                android:textColor="@color/black"
                 android:paddingStart="50dp"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -160,8 +163,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="#A6656060"
-                android:textColor="@color/black"
                 android:paddingStart="50dp"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -174,8 +177,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:background="#A6656060"
-                android:textColor="@color/white"
                 android:paddingStart="20dp"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -188,8 +191,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:background="#A6656060"
-                android:textColor="@color/black"
                 android:paddingStart="50dp"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -202,11 +205,10 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="#A6656060"
-                android:textColor="@color/black"
                 android:paddingStart="50dp"
+                android:textColor="@color/black"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
-
+                android:textStyle="bold" />
 
 
         </RadioGroup>
@@ -227,9 +229,9 @@
             android:drawableLeft="@drawable/ic_registro"
             android:drawablePadding="8dp"
             android:text="Actualizar Plan"
-            android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <ImageView

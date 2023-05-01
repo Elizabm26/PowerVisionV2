@@ -20,10 +20,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Header extends AppCompatActivity {
+    private TextView txtPlan;
+    Datos dat = new Datos();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_header);
+
     }
     public void obtenerDatosPlanes(TextView txtnombre1,String cor, TextView correo) {
         correo.setText(cor);
@@ -40,7 +43,10 @@ public class Header extends AppCompatActivity {
                                 DocumentSnapshot firstDocument = documents.get(0);
                                 Map<String, Object> data = firstDocument.getData();
                                 if (data != null) {
-                                    txtnombre1.setText(data.get("nombre").toString());
+                                    dat.setNombre(data.get("nombre").toString());
+                                    dat.setPlan(data.get("plan").toString());
+
+                                    txtnombre1.setText(dat.getNombre());
                                 }
                             }
                         } else {

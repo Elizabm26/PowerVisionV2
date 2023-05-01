@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.powervisionv2.datos.Datos;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,7 +48,8 @@ public class Fragment_planes extends Fragment {
     private TextView txtnombre4;
     private TextView txtprecio4;
     private TextView txtpower4;
-
+    private TextView plan;
+    Datos dat = new Datos();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,7 +70,8 @@ public class Fragment_planes extends Fragment {
         obtenerDatosPlanes(txtnombre2,txtpower2,txtprecio2, 1);
         obtenerDatosPlanes(txtnombre3,txtpower3,txtprecio3, 2);
         obtenerDatosPlanes(txtnombre4,txtpower4,txtprecio4, 3);
-
+        plan = view.findViewById(R.id.datosplanes);
+        plan.setText("Hola "+dat.getNombre()+"tu plan selecionado es: "+dat.getPlan());
         return view;
     }
     public void obtenerDatosPlanes(TextView txtnombre1, TextView txtpower1, TextView txtprecio1, int num) {
@@ -119,6 +122,4 @@ public class Fragment_planes extends Fragment {
         // Establecer el botón de opción como seleccionado
         radioButton.setChecked(true);
     }
-
-
 }
