@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         Fragment fragment = null;
                         int id = menuItem.getItemId();
-
                         if (id == R.id.nav_inicio) {
                             fragment = new Fragment_inicio();
                         } else if (id == R.id.nav_planes) {

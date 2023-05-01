@@ -32,7 +32,6 @@ public class Fragment_inicio extends Fragment {
 
     private DatabaseReference databaseRef;
     private FirebaseDatabase firebaseDatabase;
-
       @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
