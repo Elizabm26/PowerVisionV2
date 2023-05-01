@@ -7,6 +7,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Autenticacion {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -31,5 +34,13 @@ public class Autenticacion {
     {
         DocumentReference documentReference = db.collection("users").document(id);
         documentReference.set(datos);
+    }
+    public void update(String plan)
+    {
+        String userID = mAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("users").document(userID);
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("plan", plan);
+        documentReference.update(updates);
     }
 }

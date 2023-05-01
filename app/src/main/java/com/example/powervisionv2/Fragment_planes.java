@@ -2,6 +2,7 @@ package com.example.powervisionv2;
 
 import static android.service.controls.ControlsProviderService.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,11 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.powervisionv2.datos.Datos;
+import com.example.powervisionv2.funciones.Autenticacion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,7 +53,12 @@ public class Fragment_planes extends Fragment {
     private TextView txtprecio4;
     private TextView txtpower4;
     private TextView plan;
+    private Button update;
+    private RadioGroup seleccionar;
+    private RadioButton rbSelected;
+    String nameplan;
     Datos dat = new Datos();
+    Autenticacion aut = new Autenticacion();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +81,29 @@ public class Fragment_planes extends Fragment {
         obtenerDatosPlanes(txtnombre4,txtpower4,txtprecio4, 3);
         plan = view.findViewById(R.id.datosplanes);
         plan.setText("Hola "+dat.getNombre()+"tu plan selecionado es: "+dat.getPlan());
-
+        System.out.println("hola");
+        seleccionar = view.findViewById(R.id.planes12);
+        update = view.findViewById(R.id.planactualizar);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int selectrdId = seleccionar.getCheckedRadioButtonId();
+                if(selectrdId == -1){
+                    Toast.makeText(getActivity(), "Seleccione un plan", Toast.LENGTH_SHORT).show();
+                }else{
+                rbSelected = seleccionar.findViewById(selectrdId);
+                nameplan = rbSelected.getText().toString();
+                    try {
+                        aut.update(nameplan);
+                        Toast.makeText(getActivity(), "Plan actualizado con éxito", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), "Error al actualizar el plan", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
         return view;
     }
     public void obtenerDatosPlanes(TextView txtnombre1, TextView txtpower1, TextView txtprecio1, int num) {
@@ -100,6 +131,7 @@ public class Fragment_planes extends Fragment {
                     }
                 });
     }
+
     public void marcarPlanSeleccionado(String planId) {
         int numOpcion = 0;
         switch (planId) {
