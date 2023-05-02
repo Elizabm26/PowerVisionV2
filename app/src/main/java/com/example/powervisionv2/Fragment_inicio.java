@@ -47,6 +47,7 @@ public class Fragment_inicio extends Fragment {
 
     private DatabaseReference databaseRef;
     private FirebaseDatabase firebaseDatabase;
+    private TextView txtc;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class Fragment_inicio extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TextView textView = view.findViewById(R.id.txtDatos);
+                txtc = view.findViewById(R.id.idoculto);
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("planes").whereEqualTo("Nombre", dat.getPlan())
                         .limit(1)
@@ -84,9 +86,11 @@ public class Fragment_inicio extends Fragment {
                                         DocumentSnapshot firstDocument = documents.get(0);
                                         Map<String, Object> data = firstDocument.getData();
                                         if (data != null) {
-                                            String cantWattsStr = data.get("Cant_Watts").toString(); // Obtener el valor como un String
-                                            int cantWatts = Integer.parseInt(cantWattsStr); // Convertir el String a int
-
+                                           String cantWattsStr = data.get("Cant_Watts").toString();  // Obtener el valor como un String
+                                            //cantWatts = Integer.parseInt(cantWattsStr); // Convertir el String a int
+                                            txtc.setText(cantWattsStr);
+                                            String texto = txtc.getText().toString(); // obtiene el texto del TextView como una cadena de caracteres
+                                            int cantWatts = Integer.parseInt(texto);
                                             for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
 
                                                 //Asignamos datos a los garficos
