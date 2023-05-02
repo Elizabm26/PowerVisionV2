@@ -45,6 +45,7 @@ public class Header extends AppCompatActivity {
                                 if (data != null) {
                                     dat.setNombre(data.get("nombre").toString());
                                     dat.setPlan(data.get("plan").toString());
+                                    dat.setPais(data.get("pais").toString());
 
                                     txtnombre1.setText(dat.getNombre());
                                 }

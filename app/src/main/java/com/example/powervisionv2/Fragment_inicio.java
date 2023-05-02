@@ -36,18 +36,29 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
 
 public class Fragment_inicio extends Fragment {
     public static final String MY_CHANNEL_ID = "myChannel";
+    public static final String MY_CHANNEL_ID1 = "myChannel1";
     ArcGauge IntesidadGauge;
     ArcGauge CorrienteGauge;
 
     private DatabaseReference databaseRef;
     private FirebaseDatabase firebaseDatabase;
     private TextView txtc;
+
+    private String pais;
+    private int HorarioIni;
+    private int HorarioFini;
+    LocalTime time = LocalTime.now();
+    int hora = time.getHour();
+
+    private boolean comprobar = true;
+    Datos dat = new Datos();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +68,9 @@ public class Fragment_inicio extends Fragment {
         // obtener la raferiancia de la grafica
         IntesidadGauge = view.findViewById(R.id.Itensidad);
         CorrienteGauge = view.findViewById(R.id.Corriente);
-        Datos dat = new Datos();
+
+        pais = dat.getPais();
+
         Autenticacion ut = new Autenticacion();
         //llamar la clase medidor
         Medidor medidor= new Medidor();
@@ -103,8 +116,13 @@ public class Fragment_inicio extends Fragment {
                                                 CorrienteGauge.setValue(fireDatos.getCORRIENTE());
                                                 Double intensidad = IntesidadGauge.getValue();
                                                 Double corriente = CorrienteGauge.getValue();
-                                               // int strDouble = 0;
-                                                //int strDouble = Autenticacion.valor;
+
+                                                if(comprobar)
+                                                {
+                                                    comprobarPaisHorario(pais);
+                                                    comprobar = false;
+                                                }
+
                                                 if(corriente >= cantWatts){
                                                     createChannel();
                                                     createSimpleNotification();
@@ -161,6 +179,96 @@ public class Fragment_inicio extends Fragment {
                 .setContentText("Estás susperando el límite de consumo")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Recuerda el plan que haz contratado, y no sobrepases el límite... desconecta dispositivos que estén consumiendo energía"))
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(requireContext());
+        notificationManager.notify(1, builder.build());
+    }
+
+    private void comprobarPaisHorario (String pais1)
+    {
+        if(pais1.equals("Ecuador"))
+        {
+            HorarioIni = 14;
+            HorarioFini = 17;
+            if(hora >= HorarioIni && hora<=HorarioFini)
+            {
+                createChannel1();
+                createSimpleNotification1();
+            }
+
+        }
+        if (pais1.equals("Canadá"))
+        {
+            HorarioIni = 10;
+            HorarioFini = 15;
+            if(hora >= HorarioIni && hora<=HorarioFini)
+            {
+                createChannel1();
+                createSimpleNotification1();
+            }
+        }
+        if (pais1.equals("México"))
+        {
+            HorarioIni = 6;
+            HorarioFini = 12;
+            if(hora >= HorarioIni && hora<=HorarioFini)
+            {
+                createChannel1();
+                createSimpleNotification1();
+            }
+        }
+        if (pais1.equals("España"))
+        {
+            HorarioIni = 19;
+            HorarioFini = 23;
+            if(hora >= HorarioIni && hora<=HorarioFini)
+            {
+                createChannel1();
+                createSimpleNotification1();
+            }
+        }
+        if (pais1.equals("Argentina"))
+        {
+            HorarioIni = 15;
+            HorarioFini = 20;
+            if(hora >= HorarioIni && hora<=HorarioFini)
+            {
+                createChannel1();
+                createSimpleNotification1();
+            }
+        }
+    }
+
+    private void createChannel1() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    MY_CHANNEL_ID1,
+                    "MySuperChannel1",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            channel.setDescription("SUSCRIBETE1");
+
+            NotificationManager notificationManager = requireActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    @SuppressLint("MissingPermission")
+    private void createSimpleNotification1() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        int flag = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) ? PendingIntent.FLAG_IMMUTABLE : 0;
+        PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, flag);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), MY_CHANNEL_ID1)
+                .setSmallIcon(android.R.drawable.ic_delete)
+                .setContentTitle("HORARIO DE MAYOR FACTURACCIÓN")
+                .setContentText("Consume la menor cantidad de energía posible")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("Recuerda que dependendo del país, hay horarios en los que se pagan mas por el consumo de la energía eléctrica"))
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
