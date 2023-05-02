@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity{
         TextView correo1 = headerView.findViewById(R.id.textcorreo);
         String correo = dat.getCorreo();
         header.obtenerDatosPlanes(nombres, correo, correo1);
+
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         fragment = getSupportFragmentManager().findFragmentByTag("fragment_inicio");
         fragment = new Fragment_inicio();
