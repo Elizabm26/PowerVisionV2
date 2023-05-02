@@ -14,21 +14,30 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ekn.gruzer.gaugelibrary.ArcGauge;
+import com.example.powervisionv2.datos.Datos;
+import com.example.powervisionv2.datos.PlanUser;
+import com.example.powervisionv2.funciones.Autenticacion;
 import com.example.powervisionv2.grafico.FireDatos;
 import com.example.powervisionv2.grafico.Medidor;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
+import java.util.Map;
 
 
 public class Fragment_inicio extends Fragment {
@@ -47,8 +56,8 @@ public class Fragment_inicio extends Fragment {
         // obtener la raferiancia de la grafica
         IntesidadGauge = view.findViewById(R.id.Itensidad);
         CorrienteGauge = view.findViewById(R.id.Corriente);
-
-
+        Datos dat = new Datos();
+        Autenticacion ut = new Autenticacion();
         //llamar la clase medidor
         Medidor medidor= new Medidor();
         medidor.GeneratorGraphicsIntensidad(IntesidadGauge);
@@ -57,35 +66,54 @@ public class Fragment_inicio extends Fragment {
         // Obtiene una referencia a la base de datos
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseRef = firebaseDatabase.getReference();
-
         // Agrega un ValueEventListener para escuchar los cambios en los datos
         databaseRef.child("Sensor").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 TextView textView = view.findViewById(R.id.txtDatos);
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("planes").whereEqualTo("Nombre", dat.getPlan())
+                        .limit(1)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                                    if (documents.size() >= 1) {
+                                        DocumentSnapshot firstDocument = documents.get(0);
+                                        Map<String, Object> data = firstDocument.getData();
+                                        if (data != null) {
+                                            String cantWattsStr = data.get("Cant_Watts").toString(); // Obtener el valor como un String
+                                            int cantWatts = Integer.parseInt(cantWattsStr); // Convertir el String a int
 
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
+                                            for (DataSnapshot objSnapshot : dataSnapshot.getChildren()){
 
-                    //Asignamos datos a los garficos
-                    FireDatos fireDatos= new FireDatos();
+                                                //Asignamos datos a los garficos
+                                                FireDatos fireDatos= new FireDatos();
 
-                    fireDatos.setINTENSIDAD(Double.parseDouble(dataSnapshot.child("Amperios").getValue().toString()));
-                    fireDatos.setCORRIENTE(Double.parseDouble(dataSnapshot.child("Corriente").getValue().toString()));
+                                                fireDatos.setINTENSIDAD(Double.parseDouble(dataSnapshot.child("Amperios").getValue().toString()));
+                                                fireDatos.setCORRIENTE(Double.parseDouble(dataSnapshot.child("Corriente").getValue().toString()));
 
-                    IntesidadGauge.setValue(fireDatos.getINTENSIDAD());
-                    CorrienteGauge.setValue(fireDatos.getCORRIENTE());
+                                                IntesidadGauge.setValue(fireDatos.getINTENSIDAD());
+                                                CorrienteGauge.setValue(fireDatos.getCORRIENTE());
+                                                Double intensidad = IntesidadGauge.getValue();
+                                                Double corriente = CorrienteGauge.getValue();
+                                               // int strDouble = 0;
+                                                //int strDouble = Autenticacion.valor;
+                                                if(corriente >= cantWatts){
+                                                    createChannel();
+                                                    createSimpleNotification();
+                                                }
 
-                    Double intensidad = IntesidadGauge.getValue();
-                    Double corriente = CorrienteGauge.getValue();
+                                            }
+                                        }
+                                    }
+                                } else {
 
-                    if(intensidad >= 4 || corriente >= 400){
-                        createChannel();
-                        createSimpleNotification();
-                    }
-
-
-
-                }
+                                }
+                            }
+                        });
 
             }
 
