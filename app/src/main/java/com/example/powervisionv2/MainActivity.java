@@ -46,12 +46,12 @@ public class MainActivity extends AppCompatActivity{
         header.obtenerDatosPlanes(nombres, correo, correo1);
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        fragment = getSupportFragmentManager().findFragmentByTag("fragment_inicio");
-        fragment = new Fragment_inicio();
+        fragment = getSupportFragmentManager().findFragmentByTag("fragment_historico");
+        fragment = new Fragment_historico();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
 
         // Guardar una referencia al Fragment
-        Fragment_inicio myFragment = (Fragment_inicio) fragment;
+        Fragment_historico myFragment = (Fragment_historico) fragment;
 
         // Acceder al Fragment más tarde
         myFragment.doSomething();
@@ -68,7 +68,9 @@ public class MainActivity extends AppCompatActivity{
                             fragment = new Fragment_inicio();
                         } else if (id == R.id.nav_planes) {
                             fragment = new Fragment_planes();
-                        } else if (id == R.id.nav_logout) {
+                        } else if (id == R.id.nav_histrorico) {
+                            fragment = new Fragment_historico();
+                        }else if (id == R.id.nav_logout) {
                             FirebaseAuth.getInstance().signOut();
                             Intent intent = new Intent(MainActivity.this, Login.class);
                             startActivity(intent);

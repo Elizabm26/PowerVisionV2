@@ -5,9 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_histrorico"
+            android:icon="@drawable/nav_historica"
+            android:title="Gráfica Historica"/>
+        <item
             android:id="@+id/nav_inicio"
-            android:icon="@drawable/nav_home"
-            android:title="Inicio"/>
+            android:icon="@drawable/nav_realtime"
+            android:title="Gráfica RealTime"/>
         <item
             android:id="@+id/nav_planes"
             android:icon="@drawable/nav_planes"

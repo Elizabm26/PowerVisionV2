@@ -120,9 +120,9 @@ public class Fragment_planes extends Fragment {
                                 DocumentSnapshot firstDocument = documents.get(num);
                                 Map<String, Object> data = firstDocument.getData();
                                 if (data != null) {
-                                    txtpower1.setText(data.get("Cant_Watts").toString());
+                                    txtpower1.setText(data.get("Cant_Watts").toString() + " Watts");
                                     txtnombre1.setText(data.get("Nombre").toString());
-                                    txtprecio1.setText(data.get("Valor_plan").toString());
+                                    txtprecio1.setText("$ " + data.get("Valor_plan").toString());
                                 }
                             }
                         } else {

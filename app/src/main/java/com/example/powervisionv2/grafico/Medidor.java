@@ -1,9 +1,20 @@
 package com.example.powervisionv2.grafico;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 
 import com.ekn.gruzer.gaugelibrary.ArcGauge;
 import com.ekn.gruzer.gaugelibrary.Range;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class Medidor {
 
@@ -56,6 +67,31 @@ public class Medidor {
         retorno.addRange(Rango_1);
         retorno.addRange(Rango_2);
         retorno.addRange(Rango_3);
+        return retorno;
+    }
+    // Gráfico estatico de consumo
+    public LineChart GeneratorGraphicsHistory(LineChart retorno, Map<String, Float> data, String labr){
+        List<Entry> entries = new ArrayList<>();
+        int index = 0;
+        for (Float value : data.values()) {
+            entries.add(new Entry(index++, value));
+        }
+        LineDataSet dataSet = new LineDataSet(entries, labr);
+        dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);//version 02
+        // Añadir relleno degradado
+        dataSet.setDrawFilled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Drawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
+                    new int[]{Color.rgb(255,128,0), Color.TRANSPARENT});
+            dataSet.setFillDrawable(gradientDrawable);
+        } else {
+            dataSet.setFillColor(Color.rgb(255,128,0));
+        }
+        LineData lineData = new LineData(dataSet);
+        retorno.setData(lineData);
+        retorno.invalidate(); // Refrescar el gráfico
         return retorno;
     }
 }
