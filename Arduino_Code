@@ -1,0 +1,114 @@
+
+#include <FirebaseESP32.h>
+
+#include <WiFi.h>
+#include <Adafruit_ADS1X15.h>
+#include <Wire.h>
+
+
+//#define WIFI_SSID "Rodolfo Cabrera"
+//#define WIFI_PASSWORD "santidad@123123"
+
+#define WIFI_SSID "QP_COM"
+#define WIFI_PASSWORD "1207454172Eg"
+
+
+#define FIREBASE_HOST "https://powervisionv2-default-rtdb.firebaseio.com"
+#define FIREBASE_AUTH "UOrt4YTAHV3NiBtWrfeUHxMg0pxZxg488Oryyd9M" 
+
+
+FirebaseData firebaseData;
+Adafruit_ADS1115 ads;
+
+String nodo = "/Sensor";
+bool iterar = true;
+
+const float FACTOR = 50; //30A/1V
+const float multiplier = 0.0625F;
+
+void ImprimirMedidas(String prefix, float value, String postfix);
+
+void setup() {
+
+  Serial.begin(115200);
+  Serial.println();
+
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("Se esta conectando a");
+  Serial.println(WIFI_SSID);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    Serial.print(".");
+    delay(300);    
+  }
+  Serial.println();
+
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  Firebase.reconnectWiFi(true);
+
+  ads.setGain(GAIN_TWO);        // ±2.048V  1 bit = 0.0625mV
+  ads.begin();
+
+}
+
+void loop() {
+  
+ float CorrienteRMS = getCorriente();
+ float Potencia = 110.0 * CorrienteRMS;
+ 
+ ImprimirMedidas("Irms: ", CorrienteRMS, "A ,");
+ ImprimirMedidas("Potencia: ", Potencia, "W");
+
+    //Firebase.getInt(firebaseData,nodo+"/Amperios");
+    //Serial.println(firebaseData.intData());
+    //delay(250);
+    //Firebase.getInt(firebaseData,nodo+"/Corriente");
+    //Serial.println(firebaseData.intData());
+
+    Firebase.setFloat(firebaseData,nodo+"/Amperios",CorrienteRMS);
+    Firebase.setFloat(firebaseData,nodo+"/Corriente",Potencia);
+    Firebase.pushInt(firebaseData,nodo+"/Lecturas",CorrienteRMS);
+    Firebase.pushInt(firebaseData,nodo+"/Lecturas",Potencia);
+
+
+    delay(1000);
+    //Firebase.end(firebaseData);
+  
+}
+
+  void ImprimirMedidas(String prefix, float value, String postfix)
+{
+ Serial.print(prefix);
+ Serial.print(value, 3);
+ Serial.println(postfix);
+}
+ 
+
+float getCorriente()
+{
+ float Volt_diferencial;
+ float corriente;
+ float sum = 0;
+ long tiempo = millis();
+ int counter = 0;
+ 
+ while (millis() - tiempo < 10000)
+ {
+   Volt_diferencial = ads.readADC_Differential_0_1() * multiplier;
+   
+   //-----------------------------------------------------
+   //Volt_diferencial = ads.readADC_Differential_2_3() * multiplier;
+   //-----------------------------------------------------
+   
+   corriente = Volt_diferencial * FACTOR;
+   corriente /= 1000.0;
+ 
+   sum += sq(corriente);
+   counter = counter + 1;
+  }
+ 
+ corriente = sqrt(sum / counter);
+ return(corriente);
+}
+
+
